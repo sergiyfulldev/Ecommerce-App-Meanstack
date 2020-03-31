@@ -1,0 +1,18 @@
+<!-- <h1>{{name}}</h1> -->
+<div class="list-group">
+  <a href="#" class="list-group-item active main-color-bg">
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    Dashboard
+  </a>
+  <a href="/admin/professors" class="list-group-item">
+    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+    <span class="badge">12</span>
+    Escuelas y sus professores
+  </a>
+  <a href="/adminUsers" class="list-group-item">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+    <!--This property is pass via the parent component admin-dashboard to app-sidebar to this component  -->
+    <span class="badge">{{totalUsers}}</span>
+     Buscar solamente por professor
+   </a>
+</div>

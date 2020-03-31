@@ -1,0 +1,55 @@
+<header id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> DashBoard <small>Maneja las escuelas</small></h2>
+      </div>
+      <div class="col-md-3">
+       <div class="dropdown create">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Opciones
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="/register">Añade un professor</a></li>
+            <li><a href="/register/admin">Añade un administrador</a></li>
+            <li><a href="/admin/upload">Suba un modelo</a></li>
+            <li><a href="/admin/professors">Busque Escuela con sus professores</a></li>
+            <li><a href="/adminUsers">Vea todos los professores disponibles</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> <!--End div container -->
+</header> <!--End top Part of the website -->
+
+<!--Breadcrumb section  -->
+<section id="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="active">Dashboard </li>
+    </ol>
+</section> <!--End breadcrumb section -->
+
+<section id="main">
+  <div class="controller">
+    <div class="row">
+      <div class="col-md-3">
+        <!--Sidebar need to have the [] to pass the data to the child -->
+        <app-sidebar [admin-Dashboard-totalUser-Props] = totalUsers></app-sidebar>
+      </div>
+      <div class="col-md-9">
+        <!--Boxes -->
+        <!--Pass the totalUser number to the app-boxes component  -->
+        <app-boxes [admin-Dashboard-totalUser-Props] = totalUsers></app-boxes>
+      </div>
+    </div>
+    <!--Professores Table-->
+    <app-table [dataset] = latestUser text="Ultimos Professores Registrados">
+    </app-table>
+    <app-display-professors> 
+      cargando los profesores
+    </app-display-professors>        
+  </div>
+  <!--Add Page Modal  -->
+  <!-- <app-modal modalId="addPage"></app-modal> -->
+</section>

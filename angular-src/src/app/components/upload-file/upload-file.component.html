@@ -1,0 +1,182 @@
+<div class="navbar navbar-default">
+    <div class="navbar-header">
+        <a class="navbar-brand" >Subir un modelo o plantilla (template)</a>
+    </div>
+</div>
+
+<div class="">
+<span id="fileselector">
+    <label class="btn btn-default" for="upload-file-selector">
+        <input id="upload-file-selector" type="file" name="photo" ng2FileSelect [uploader]="uploader" >
+        <i class="fa_icon icon-upload-alt margin-correction"></i>Elige un archivo
+    </label>
+</span>
+</div>
+
+<div class="" style="margin-bottom: 40px">
+
+    <h3>Archivos sin subir</h3>
+    <p>Numeros de archivos sin subir: {{ uploader?.queue?.length }}</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th width="50%">Nombre del archivo</th>
+        <th>Tamaño</th>
+        <th>Progresso</th>
+        <th>Estado</th>
+        <th>Actiones a tomar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of uploader.queue">
+        <!--Nombre del archivo  -->
+        <td><strong>{{ item?.file?.name }}</strong></td>
+        <td *ngIf="true" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+        <td *ngIf="true">
+            <div class="progress" style="margin-bottom: 0;">
+                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+            </div>
+        </td>
+        <!--Signo del Status   -->
+        <td class="text-center">
+            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+        </td>
+        <!--Actions rows nowrap lo pones todos inline -->
+        <td nowrap>
+            <!--When you click the item will upload  -->
+            <button type="button" class="btn btn-success btn-xs"
+                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                <span class="glyphicon glyphicon-upload"></span> Subir Archivo
+            </button>
+            <button type="button" class="btn btn-warning btn-xs"
+                    (click)="item.cancel()" [disabled]="!item.isUploading">
+                <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+            </button>
+            <button type="button" class="btn btn-danger btn-xs"
+                    (click)="item.remove()">
+                <span class="glyphicon glyphicon-trash"></span> Remover
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!--Progress Bar  -->
+<div>
+    <div>
+        Progresso:
+        <div class="progress" style="">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success btn-s"
+            (click)="uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <span class="glyphicon glyphicon-upload"></span> Subir todos los archivos
+    </button>
+    <button type="button" class="btn btn-warning btn-s"
+            (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+        <span class="glyphicon glyphicon-ban-circle"></span> Cancelar todos los archivos
+    </button>
+    <button type="button" class="btn btn-danger btn-s"
+            (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+        <span class="glyphicon glyphicon-trash"></span> Remover todos los archivos
+    </button>
+</div>
+<!--End Progress bar  -->
+
+<h2> </h2>
+
+</div>
+<br>
+
+<!-- <input *ngIf="listOfFileNames" type="button" (click)="addRow()" [disabled]="listOfFileNames.length >=5" value="Add Row" class="btn btn-primary"> -->
+
+<div class="row table-responsive">
+  <div class="col-md-12">
+    <table class="table table-bordered table-hover">
+      <caption style="font-size:40px;">Archivos Subidos:</caption>
+      <!--Header of the table  -->
+      <tr>
+        <th>Numero</th>
+        <th>Nombre del Archivo</th>
+        <!-- Desactivados 21/diciembre -->
+        <!-- <th style="width:80px">Editar</th>
+        <th style="width:80px">Eliminar</th> -->
+        <!-- <th>Subido Por</th> -->
+      </tr>
+      <!--Rows of tables  -->
+      <tr *ngFor="let file of listOfFileNames;let index = index" class="">
+        <th scope="row">{{index + 1}}</th>
+        <td colspan="">{{file.name}} </td>
+        <!--Edit row Desactivados 21/diciembre 2017 -->
+        <!-- <td>
+          <p data-placement="top" data-toggle="tooltip" title="Edit" style="display:inline;float:left;"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil" style="font-size:12px;"></span></button></p>
+        </td> -->
+        <!--Delete Row  Desactivados 21/diciembre 2017 -->
+        <!-- <td>
+          <p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" > <span class="glyphicon glyphicon-trash" style="font-size:12px"></span></button></p>
+        </td> -->
+        <!--Subido Por Row  -->
+        <td>
+
+        </td>
+      </tr> <!-- End of rows Tables -->
+    </table>
+  </div>
+</div>
+
+<h2 *ngIf="!listOfFileNames">No hay archivos para mostrar al momento</h2>
+
+
+<!--Edit Modal que por ahora 21/diciembre 2017 estaran desactivados-->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Edita este archivo</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input class="form-control " type="text" placeholder="Mohsin">
+        </div>
+        <div class="form-group">
+          <input class="form-control " type="text" placeholder="Irshad">
+        </div>
+        <div class="form-group">
+          <textarea rows="2" class="form-control" placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer ">
+      <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Actualizar</button>
+    </div>
+  </div>
+ <!-- /.modal-content -->
+ </div>
+<!-- /.modal-dialog -->
+</div> <!-- End Edit Modal -->
+
+<!--Start Delete Modal que por ahora 21/diciembre 2017 estaran desactivados -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+      <h4 class="modal-title custom_align" id="Heading">Eliminar este archivo</h4>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Estas seguro que quieres eliminar este archivo. Los professores no tendran accesso a este archivo</div>
+    </div>
+    <div class="modal-footer ">
+      <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span>Si</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+    </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!--/.modal-dialog -->
+</div>
+<!--End Delete Modal  -->

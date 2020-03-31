@@ -1,0 +1,49 @@
+<header id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <h2><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Profesores <small>Maneja las escuela y sus profesores</small></h2>
+      </div>
+      <!--Dropdown  -->
+      <div class="col-md-3">
+       <div class="dropdown create">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Opciones
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="/register">Añade un professor</a></li>
+            <li><a href="/admin/professors">Busque Escuela con sus professores</a></li>
+            <li><a type="button" data-toggle = "modal" data-target="#addPage">Vea todos los professores disponibles</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> <!--End div container -->
+</header> <!--End top Part of the website -->
+
+<!--Breadcrumb section  -->
+<section id="breadcrumb">
+    <ol class="breadcrumb">
+      <li class=""> <a href = "/adminDashboard">Dashboard </a> </li>
+      <li class="active">Escuelas</li>
+    </ol>
+</section> <!--End breadcrumb section -->
+
+
+<section id="main">
+  <div class="controller">
+    <div class="row">
+      <div class="col-md-3">
+        <!--Sidebar -->
+        <app-sidebar [admin-Dashboard-totalUser-Props] = totalUsers> </app-sidebar>
+      </div>
+      <div class="col-md-9">
+        <!--User Table exportProp -> is a prop pass to the admin-users from the app-table-->
+        <app-table [dataset] = allUsers className="main-color-bg" text = "Users" showFilter = true (exportProp)="skipUser($event)"></app-table>
+      </div>
+    </div>
+  </div>
+  <!--Add Page Modal  -->
+  <app-modal modalId="addPage"></app-modal>
+</section>

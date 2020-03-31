@@ -1,0 +1,60 @@
+<!--ngIf(ifStatement)- Make sure there's a user before showing html  -->
+<div *ngIf="user" class="">
+  <!--Embed the user name -->
+  <h2 class="page-header">{{user.name}}</h2>
+  <ul class="list-group">
+    <!--username of the user  -->
+    <li class="list-group-item">
+      Nombre de usuario: {{user.username}}
+
+    </li>
+    <!--Email of the user  -->
+    <li class="list-group-item">
+      Dirrecion de Correo Electrónico: {{user.email}}
+    </li>    
+    <!--Escuela of the user  -->
+    <li *ngIf="user.nombreEscuela" class="list-group-item">
+      Escuela a la que pertenece: {{user.nombreEscuela}}
+    </li>
+    <li *ngIf="!user.nombreEscuela" class="list-group-item">
+      No pertenece a niguna escuela
+    </li>
+  </ul>
+</div>
+
+<!-- <div *ngIf="fileLink" class="">
+  <h2>modelo para descargar
+      <a target="_blank" [href]=fileUrl download (click)="downloadLink()" >Template 1</a>
+  </h2>
+</div> -->
+
+<!-- <div *ngIf="isDownloading" class="">
+  <h2>Descargando archivos</h2>
+</div> -->
+
+
+<!--Tabla de archivos para descargar-->
+<!--Crear Componente aparte -->
+<br>
+<div class="row table-responsive">
+  <div class="col-md-12">
+    <table class="table table-bordered table-hover">
+      <caption style="font-size:40px;">Descargar plantillas de trabajo:</caption>
+      <!--Header of the table  -->
+      <tr>
+        <th>Numero</th>
+        <th>Nombre del Archivo</th>
+      </tr>
+      <!--Rows of tables  -->
+      <tr *ngFor="let file of listOfFileNames;let index = index" class="">
+        <th scope="row">{{index + 1}}</th>
+        <!-- <td colspan=""> <a href="/file/{{file.name}}" download> {{file.name}}  -->
+          <td colspan=""> <a href="/file/{{file.name}}" > {{file.name}} 
+        </a> </td>
+        
+      </tr> <!-- End of rows Tables -->
+    </table>
+  </div>
+</div>
+
+<h2 *ngIf="!listOfFileNames">No hay archivos para mostrar al momento</h2>

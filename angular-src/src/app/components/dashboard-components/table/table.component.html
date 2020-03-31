@@ -1,0 +1,104 @@
+<!--To add External Javscript file I need to add it to the script section angular-cli.json   -->
+
+<div class="panel panel-default">
+  <div class="panel-heading {{className}} ">
+    <h3 class="panel-title ">{{text}}</h3>
+  </div>
+  <div class="panel-body">
+    <div *ngIf="showFilter" class="form-group">
+      <!--Show Search Filter  -->
+      <input id="filterInput" class="makeSmaller form-control" onkeyup="filterUsersByName()" type="text" placeholder="Buscar Professores" name="" value="">
+    </div>
+    <table id="userTable" class="table table-striped table-hover table-responsive success">
+      <!-- Table Header -->
+      <tr>
+        <th>Nombre</th>
+        <th>Escuela</th>
+        <th>Dirección de Correo Electrónico</th>
+        <th>Día en que se registro</th>
+      </tr>
+      <!--Table Body -->
+    <tbody>
+      <!-- Do a for loop to show the tables -->
+      <tr *ngFor="let record of dataset; let ind = index">
+          <!-- || - mean alternate text. is Like an If  -->
+          <!-- <h1>{{i}} index</h1> -->
+          <!--if index(i) is greater than 5 dont show more Table data  -->
+          <!--if index > 6 render the tableDate but with a display set to none.That way the search filter will look for all the user in the db and not only the one that are showing in the table  -->
+          <td style="display:none" *ngIf="ind > 5">{{record.name || "No hay nombre" }}</td>
+           <td *ngIf="ind < 6">{{record.name || "No hay nombre" }}</td>
+
+           <!-- escuela row  -->
+           <td style="display:none" *ngIf="ind > 5">{{record.nombreEscuela || "No se proveyó nombre de escuela" }}</td>
+            <td *ngIf="ind < 6">{{record.nombreEscuela || "No se proveyó nombre de escuela" }}</td>
+
+           <!-- email -->
+           <td style="display:none" *ngIf="ind > 5">{{record.email || "No hay email "}}</td>
+           <td *ngIf="ind < 6">{{record.email || "No hay email"}}</td>
+
+           <td style="display:none" *ngIf="(record.CreatedDate && ind > 5)">{{record.CreatedDate | date:'MMM dd' }} at {{record.CreatedDate | date:'hh:mm' }}
+           </td>
+           <!--Show this row if there's a date in the json  -->
+           <td *ngIf="(record.CreatedDate && ind < 6)">{{record.CreatedDate | date:'MMM dd' }} at
+             {{record.CreatedDate | date:'hh:mm' }}
+          </td>
+          <!--Alternate show this row if there is not a date in the json data  -->
+          <td style="display:none" *ngIf="(!record.CreatedDate && ind > 5)"> Niguna fecha fue dada</td>
+          <td *ngIf="(!record.CreatedDate && ind < 6)"> No se otorgo una fecha</td>
+      </tr>
+    </tbody>
+</table>
+  <!--[(page)] - pa pasar la variable  -->
+  <div *ngIf="showFilter" class=" text-center d-flex justify-content-center">
+    <ngb-pagination [collectionSize]="100" [(page)]="currentPage" aria-label="Default pagination" (click) = "skipUser(currentPage)" size =""></ngb-pagination>
+    <pre></pre>
+  </div>
+  </div>
+</div>
+
+
+ <!-- <div *ngFor="let school of schoolNames; let index = index" class="bg-gray">
+  <div class="">
+      <h2 class="well"> {{school || "No hay niguna escuela registrada"}} </h2>
+       <h2  *ngFor="let item of [1,2,3]; let index = index"> 
+          &nbsp;&nbsp;&nbsp;&nbsp; - {{professors[index]}} 
+        </h2> 
+  </div> 
+ </div> -->
+
+
+<!-- <div class="wrapper2 s" style="
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 10px;
+">
+  <!-- <h2> {{dictionary["z escuela"]}} </h2> 
+  <div class="gridItemSchool" *ngFor="let school of dictionaryKeys(dictionary)">
+      <!-- <h2> {{school + ':' + dictionary[school] }} </h2>
+      <h2 class="well">{{school}} </h2>
+      <div class="gridItemProfessor" *ngFor="let professor of dictionary[school]">
+          <h4> &nbsp;&nbsp;&nbsp;&nbsp; - {{professor}} </h4>
+      </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+  <!-- <div *ngFor="let professor of professors; let index = index"> 
+    <h2 *ngIf="index % 4 !=0" style= "display:inline;" >
+      &nbsp;&nbsp;&nbsp;&nbsp; - {{professor|| "Estas escuelas no tiene ningun profesor"}} - Files: {{numberProfessorsFiles[index]}}
+    </h2>
+
+    <div *ngIf="index % 3 == 0 ">
+      <br>
+      <h2 class="well"> 
+        {{professor}}
+      </h2>
+    </div>
+  </div> -->
+

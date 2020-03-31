@@ -1,0 +1,95 @@
+/* Custom Color*/
+.main-color-bg{
+  background-color: #93c54b !important;
+  border-color: #c0932b !important ;
+  color: #ffffff !important;
+}
+ .panel-title{
+   color: #ffffff;
+ }
+
+ .panel-heading{
+   background-color: #93c54b ;
+   border-color: black  ;
+ }
+
+/*.pagination{}*/
+.center {
+  margin-left: 200px;
+}
+
+/* Make Inout Search Field Smaller*/
+.makeSmaller{
+  height: 34px;
+}
+
+/** ------------------------------- ** /
+/** Display Grid Wrapper */
+.grid-wrapper{
+  /* display: -ms-grid; */
+  display: inline;
+  /* -ms-layout-grid-type: 1fr,1fr,1fr; */
+  grid-template-columns: 1fr,1fr,1fr;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 40px;
+  font-family: 'Open Sans', 'sans-serif';
+  background-color: #fff;
+  color: #444;
+}
+
+h1, p {
+  margin: 0 0 1em 0;
+}
+
+.wrapper {
+  max-width: 940px;
+  margin: 0 20px;
+  display: grid;
+  grid-gap: 10px;
+}
+
+
+@media screen and (min-width: 500px) {
+
+  /* no grid support? */
+  .sidebar {
+    float: left;
+    width: 19.1489%;
+  }
+
+  .content {
+    float: right;
+    width: 79.7872%;
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .header, .footer {
+    grid-column: 1 / -1;
+    /* needed for the floated layout */
+    clear: both;
+  }
+
+
+}
+
+ .s{
+   color:blue;
+ }
+  .wrapper2{
+     display: grid;
+     color:darkcyan;
+  }
+  .wrapper2{
+    grid-template-columns: 1fr 3fr;
+  }
+
